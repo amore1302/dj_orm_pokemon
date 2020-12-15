@@ -7,7 +7,6 @@ from django.http import HttpResponseNotFound
 from django.shortcuts import render
 
 
-from django.core.exceptions import ObjectDoesNotExist
 from django.core.exceptions import MultipleObjectsReturned
 
 MOSCOW_CENTER = [55.751244, 37.618423]
@@ -55,9 +54,9 @@ def show_all_pokemons(request):
 def show_pokemon(request, pokemon_id):
     try:
         requested_pokemon = Pokemon.objects.filter(id=pokemon_id).get()
-    except ObjectDoesNotExist:
+    except Pokemon.DoesNotExist:
         return HttpResponseNotFound('<h1>Такой покемон не найден</h1>')
-    except MultipleObjectsReturned:
+    except  MultipleObjectsReturned:
         return HttpResponseNotFound('<h1>много  покемонов с одним id Так никак не может быть</h1>')
 
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
