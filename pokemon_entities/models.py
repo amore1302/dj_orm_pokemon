@@ -2,9 +2,9 @@ from django.db import models
 
 
 class Pokemon(models.Model):
-    title = models.CharField(max_length=200, blank=False, null=False, verbose_name="Имя")
-    title_en = models.CharField(max_length=200, blank=True, null=False, verbose_name="Имя на анг")
-    title_jp = models.CharField(max_length=200, blank=True, null=False, verbose_name="Имя на яп")
+    title = models.CharField(max_length=200, blank=False, verbose_name="Имя")
+    title_en = models.CharField(max_length=200, blank=True, verbose_name="Имя на анг")
+    title_jp = models.CharField(max_length=200, blank=True, verbose_name="Имя на яп")
     image = models.ImageField(blank=True, null=True, verbose_name="файл картинки")
     previous_evolution = models.ForeignKey('self',
                         on_delete=models.PROTECT,
@@ -13,7 +13,7 @@ class Pokemon(models.Model):
                         related_query_name = "next_evolution",
                         verbose_name="Родитель",
                                            )
-    description = models.TextField(blank=True, null=False, verbose_name="Описание")
+    description = models.TextField(blank=True, verbose_name="Описание")
     def __str__(self):
         return self.title
 
